@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/Menu1"
+        android:title="Cadastro"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/Menu2"
+        android:title="Receitas"
+        app:showAsAction="never">
+    </item>
+
+    <item android:id="@+id/Menu1"
+        android:title="Favoritos"
+        app:showAsAction="never">
+    </item>
+
+</menu>

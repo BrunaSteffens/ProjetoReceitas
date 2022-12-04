@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Receitas de Casa</string>
+    <string name="cadastrar">Cadastre-se</string>
+    <string name="login">Fazer login</string>
+    <string name="usuario">Usuário</string>
+    <string name="password">Senha</string>
+    <string name="email">E-mail</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="titulo">Título</string>
+    <string name="ingredientes">Ingredientes</string>
+    <string name="preparo">Modo de preparo</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="tempoPreparo">Tempo de preparo</string>
+    <string name="tempo">XX min</string>
+    <string name="rendimento">Rendimento:</string>
+    <string name="porcoes">XX porções</string>
+    <string name="boasVindas">Bem-vindo ao Receitas de Casa</string>
+    <string name="cadastrarReceita">Cadastrar receita</string>
+    <string name="perfil">Meu perfil</string>
+    <string name="receitas">Receitas</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="home">Home</string>
+    <string name="nome_receita">Nome da Receita</string>
+    <string name="categoria">Categoria</string>
+    <string name="em_minutos">Tempo de preparo (em minutos)</string>
+    <string name="em_porcoes">Rendimento (em porções)</string>
+</resources>
