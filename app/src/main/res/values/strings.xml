@@ -25,4 +25,7 @@
     <string name="categoria">Categoria</string>
     <string name="em_minutos">Tempo de preparo (em minutos)</string>
     <string name="em_porcoes">Rendimento (em porções)</string>
+    <string name="pesquisar_receitas">Pequisar receitas pelo nome:</string>
+    <string name="pesquisar">Pesquisar</string>
+    <string name="resultado">Resultado:</string>
 </resources>

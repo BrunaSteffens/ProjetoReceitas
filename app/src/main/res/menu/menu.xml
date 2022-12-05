@@ -2,17 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/Menu1"
-        android:title="Cadastro"
+    <item
+        android:icon="@drawable/ic_search"
+        android:title="Pesquisar"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="android.widget.SearchView"
+        android:id="@+id/buscar"/>
+
+
+    <item android:id="@+id/Home"
+        android:title="Home"
         app:showAsAction="never">
     </item>
 
-    <item android:id="@+id/Menu2"
-        android:title="Receitas"
-        app:showAsAction="never">
-    </item>
-
-    <item android:id="@+id/Menu1"
+    <item android:id="@+id/Favoritos"
         android:title="Favoritos"
         app:showAsAction="never">
     </item>

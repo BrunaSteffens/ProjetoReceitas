@@ -5,17 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FF0000"
-    tools:context=".view.SplashActivity">
+    tools:context=".projeto.view.SplashActivity">
 
     <TextView
         android:id="@+id/welcome"
-        android:layout_width="246dp"
-        android:layout_height="308dp"
+        android:layout_width="356dp"
+        android:layout_height="422dp"
         android:fontFamily="@font/righteous"
+        android:gravity="center"
         android:text="@string/boasVindas"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="48sp"
+        android:textSize="40sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

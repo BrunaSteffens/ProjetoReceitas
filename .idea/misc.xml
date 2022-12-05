@@ -8,9 +8,10 @@
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/drawable/ic_launcher_background.xml" value="0.196" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/font/righteous.xml" value="0.20555555555555555" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_cadastro.xml" value="0.18034447821681865" />
-        <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_home.xml" value="0.15942028985507245" />
+        <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_home.xml" value="0.25" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_login.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_receita.xml" value="0.33" />
+        <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_pesquisa.xml" value="0.33" />
+        <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_receita.xml" value="0.25" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/activity_splash.xml" value="0.1671195652173913" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/layout/view_holder_receitas.xml" value="0.365625" />
         <entry key="..\:/Users/bruna/AndroidStudioProjects/ProjetoReceitas/app/src/main/res/menu/menu.xml" value="0.18802083333333333" />

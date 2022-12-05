@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,19 +20,16 @@ import com.example.projetoreceitas.projeto.view.ReceitaActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListaReceitasAdapter extends RecyclerView.Adapter {
+public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filterable {
     private List<Receita> receitaList;
-    private Context context;
+    private List<Receita> receitaTotal;
     private static final String TAG = "ListaReceitasAdapter";
     public View layoutVH;
 
     public ListaReceitasAdapter(List<Receita> receitaList) {
         this.receitaList = receitaList;
+        receitaTotal = new ArrayList<>(receitaList);
     }
-
-    public ListaReceitasAdapter() {
-    }
-
 
     @NonNull
     @Override
@@ -46,7 +45,7 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter {
         ((TextView) holder.itemView.findViewById(R.id.nome_receita)).setText(receita.getTitulo());
         ((TextView) holder.itemView.findViewById(R.id.rendimento)).setText(receita.getRendimento());
 
-        holder.itemView.findViewById(R.id.nome_receita).setOnClickListener(new View.OnClickListener() {
+        holder.itemView.findViewById(R.id.view_holder_receitas).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ReceitaActivity.class);
@@ -62,6 +61,42 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return receitaList.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filtro;
+    }
+
+    private Filter filtro = new Filter(){
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            List<Receita> listaFiltrada = new ArrayList<>();
+
+            if (constraint == null || constraint.length() == 0){
+                listaFiltrada.addAll(receitaTotal);
+
+            } else {
+                String filtroPadrao = constraint.toString().toLowerCase().trim();
+
+                for(Receita r: receitaTotal){
+                    if (r.getTitulo().toLowerCase().contains(filtroPadrao)){
+                        listaFiltrada.add(r);
+                    }
+                }
+            }
+            FilterResults resultado = new FilterResults();
+            resultado.values = listaFiltrada;
+            return resultado;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults resultado) {
+            receitaList.clear();
+            receitaList.addAll((List) resultado.values);
+            notifyDataSetChanged();
+
+        }
+    };
 }
 
 class ListaReceitasViewHolder extends RecyclerView.ViewHolder {
