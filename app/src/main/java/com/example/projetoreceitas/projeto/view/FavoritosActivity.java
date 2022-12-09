@@ -21,6 +21,7 @@ import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.adapter.ListaReceitasAdapter;
 import com.example.projetoreceitas.projeto.model.Receita;
 import com.example.projetoreceitas.projeto.model.Usuario;
+import com.example.projetoreceitas.projeto.repository.FavoritoRepositorio;
 import com.example.projetoreceitas.projeto.repository.OnReadyListener;
 import com.example.projetoreceitas.projeto.repository.ReceitasRepositorio;
 import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
@@ -28,38 +29,35 @@ import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class FavoritosActivity extends AppCompatActivity {
     private ListaReceitasAdapter adapter;
     private RecyclerView recyclerView;
     private Usuario usuario;
     private String usuario_filtro;
-
+    private List<Receita> receitasFavoritas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_favoritos);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int u = preferences.getInt("usuario_id", 0);
         usuario = UsuarioRepositorio.getInstance().getUserById(u);
-        Log.e(TAG, "onCreate: usuario recebido " + usuario.getName());
+        Log.e(TAG, "onCreate Favoritos: usuario recebido " + usuario.getName());
 
-        ReceitasRepositorio.getInstance(this, new OnReadyListener() {
-            @Override
-            public void onReady() {
-                Log.d(TAG, "onCreate: Buscando o banco Json na Home");
-                recyclerView = findViewById(R.id.rv_lista_receitas);
-                adapter = new ListaReceitasAdapter(getApplicationContext(), ReceitasRepositorio.getInstance().getReceitas());
-                recyclerView.setAdapter(adapter);
-                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                llm.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(llm);
+        receitasFavoritas = FavoritoRepositorio.getInstance(this).getFavoritos(usuario.getId());
+        Log.e(TAG, "onCreate Favoritos activity: "+ receitasFavoritas.size() );
 
-                Log.d(TAG, "Tamanho da lista de receitas "+ adapter.getItemCount());
+        recyclerView = findViewById(R.id.rv_lista_receitas);
+        adapter = new ListaReceitasAdapter(this, receitasFavoritas);
 
-            }
-        });
+        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        recyclerView.setAdapter(adapter);
+
+        Log.d(TAG, "Tamanho da lista de receitas "+ adapter.getItemCount());
     }
 
     @Override
@@ -88,12 +86,11 @@ public class HomeActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
             case R.id.Home:
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
                 return true;
 
             case R.id.Favoritos:
-                Log.e(TAG, "onOptionsItemSelected: Usuário cliclou em Favoritos");
-                Intent intent = new Intent(this, FavoritosActivity.class);
-                startActivity(intent);
                 return true;
 
             default:
@@ -101,4 +98,5 @@ public class HomeActivity extends AppCompatActivity {
         }
 
     }
+
 }

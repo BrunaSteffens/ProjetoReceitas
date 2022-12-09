@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "BancoReceitas";
-    private static final Integer DB_VERSION = 1;
+    private static final Integer DB_VERSION = 4;
     private Context context;
 
     public DatabaseHelper(Context context) {
@@ -17,8 +17,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //(int id, String name, String email, String password)
-        String sqlUser = "create table users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT); ";
+        String sqlUser = "CREATE TABLE users (user_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT); ";
         db.execSQL(sqlUser);
+
+        String sqlFavorito = "CREATE TABLE favoritos (favorito_id INTEGER PRIMARY KEY AUTOINCREMENT, receita_id LONG, user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users (user_id));";
+        db.execSQL(sqlFavorito);
 
 
         /*
@@ -40,20 +43,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        String sql_upgrade_users = "DROP TABLE IF EXISTS users";
+        String sql_upgrade_users = "DROP TABLE IF EXISTS users;";
         db.execSQL(sql_upgrade_users);
 
-        /*
-        String sql_upgrade_receitas = "DROP TABLE IF EXISTS receitas";
-        db.execSQL(sql_upgrade_receitas);
-
-        String sql_upgrade_ingredientes = "DROP TABLE IF EXISTS ingredientes";
-        db.execSQL(sql_upgrade_ingredientes);
-
-        String sql_upgrade_modo_preparo = "DROP TABLE IF EXISTS modo_preparo";
-        db.execSQL(sql_upgrade_modo_preparo);
-
-         */
+        String sql_update_favoritos = "DROP TABLE IF EXISTS favoritos;";
+        db.execSQL(sql_update_favoritos);
 
         onCreate(db);
     }

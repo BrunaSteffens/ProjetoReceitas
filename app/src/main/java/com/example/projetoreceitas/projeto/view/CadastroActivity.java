@@ -36,16 +36,8 @@ public class CadastroActivity extends AppCompatActivity  implements LoginPresent
                         usuario.setEmail(((TextView) findViewById(R.id.signUpEmail)).getText().toString());
                         usuario.setPassword(((TextView) findViewById(R.id.signUpPassword)).getText().toString());
 
-                        if(UsuarioRepositorio.getInstance().getUserByEmail(usuario.getEmail())!=null){
-                            Toast.makeText(getApplicationContext(), "Usuário já cadastrado", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                            startActivity(intent);
-
-                        } else{
-                            UsuarioRepositorio.getInstance().addUser(usuario);
-                            Toast.makeText(getApplicationContext(), "Usuário cadastrado com sucesso", Toast.LENGTH_LONG).show();
-                            presenter.checkLogin(usuario.getEmail(), usuario.getPassword());
-                        }
+                        UsuarioRepositorio.getInstance().addUser(usuario);
+                        presenter.checkLogin(usuario.getEmail(), usuario.getPassword());
                     }
                 }
         );

@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.projetoreceitas.projeto.model.Favorito;
 import com.example.projetoreceitas.projeto.model.Receita;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -104,6 +105,7 @@ public class ReceitasRepositorio implements ReceitaRepositorioInterface, Respons
         }
         return receita;
     }
+
 
     @Override
     public Receita getReceitabyNome(String nome) {

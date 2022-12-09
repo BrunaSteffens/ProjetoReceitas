@@ -1,11 +1,14 @@
 package com.example.projetoreceitas.projeto.repository;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.projetoreceitas.projeto.model.Usuario;
+import com.example.projetoreceitas.projeto.view.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +44,19 @@ public class UsuarioRepositorio {
     public void addUser(Usuario usuario) {
         String sql = "insert into users (name, email, password) values(?, ?, ?);";
         Object[] args = {usuario.getName(), usuario.getEmail(), usuario.getPassword()};
-        database.execSQL(sql, args);
+
+        if (usuario.getName().isEmpty()||usuario.getEmail().isEmpty()||usuario.getPassword().isEmpty()){
+            Toast.makeText(contexto, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+        }
+        else if(getUsers().contains(usuario.getEmail())) {
+            Toast.makeText(contexto, "E-mail já cadastrado", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(contexto, LoginActivity.class);
+            contexto.startActivity(intent);
+        }
+        else {
+            database.execSQL(sql, args);
+            Toast.makeText(contexto, "Usuário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void updateUser(Usuario usuario){

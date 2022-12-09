@@ -16,6 +16,9 @@
         android:theme="@style/Theme.ProjetoReceitas"
         tools:targetApi="31">
         <activity
+            android:name=".projeto.view.FavoritosActivity"
+            android:exported="false" />
+        <activity
             android:name=".projeto.view.ReceitaActivity"
             android:exported="false" />
         <activity

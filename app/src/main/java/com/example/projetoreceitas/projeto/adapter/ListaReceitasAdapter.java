@@ -1,7 +1,12 @@
 package com.example.projetoreceitas.projeto.adapter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.model.Receita;
+import com.example.projetoreceitas.projeto.model.Usuario;
+import com.example.projetoreceitas.projeto.repository.FavoritoRepositorio;
+import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
 import com.example.projetoreceitas.projeto.view.HomeActivity;
 import com.example.projetoreceitas.projeto.view.ReceitaActivity;
 
@@ -23,12 +31,16 @@ import java.util.List;
 public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filterable {
     private List<Receita> receitaList;
     private List<Receita> receitaTotal;
+    private Context context;
     private static final String TAG = "ListaReceitasAdapter";
     public View layoutVH;
+    private SharedPreferences preferences;
 
-    public ListaReceitasAdapter(List<Receita> receitaList) {
+    public ListaReceitasAdapter(Context context, List<Receita> receitaList) {
+        this.context = context;
         this.receitaList = receitaList;
         receitaTotal = new ArrayList<>(receitaList);
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @NonNull
@@ -41,6 +53,7 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filter
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Receita receita = receitaList.get(position);
+
 
         ((TextView) holder.itemView.findViewById(R.id.nome_receita)).setText(receita.getTitulo());
         ((TextView) holder.itemView.findViewById(R.id.rendimento)).setText(receita.getRendimento());
@@ -97,6 +110,7 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filter
 
         }
     };
+
 }
 
 class ListaReceitasViewHolder extends RecyclerView.ViewHolder {
