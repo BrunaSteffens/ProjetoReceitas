@@ -14,14 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsuarioRepositorio {
-
-    //Aqui será feita a integração com a tabela de usuários do banco de dados.
-    //Por enquanto será com SQL para poder testar as funcionalidades do app
-
-    private static final String TAG = "UserRepository";
+    private static final String TAG = "UsuarioRepositorio";
     private static UsuarioRepositorio instance;
-    private Context contexto;
-    private SQLiteDatabase database;
+    private final Context contexto;
+    private final SQLiteDatabase database;
 
     public UsuarioRepositorio(Context contexto) {
         super();
@@ -62,13 +58,13 @@ public class UsuarioRepositorio {
     public void updateUser(Usuario usuario){
         String sql = "update users set name = ?, email = ?, password = ?;";
         Object[] args = {usuario.getName(), usuario.getEmail(), usuario.getPassword()};
-        database.execSQL(sql);
+        database.execSQL(sql, args);
     }
 
     public void deleteUser(Usuario usuario){
         String sql = "delete from users where email = ?;";
         Object[] args = { usuario.getEmail()};
-        database.execSQL(sql);
+        database.execSQL(sql, args);
     }
 
     public List<Usuario> getUsers() {
@@ -119,12 +115,11 @@ public class UsuarioRepositorio {
 
     private Usuario userFromCursor(Cursor cursor) {
         //int id, String name, String email, String password
-        Usuario usuario = new Usuario(
+        return new Usuario(
                 cursor.getInt(0),
                 cursor.getString(1),
                 cursor.getString(2),
                 cursor.getString(3));
-        return usuario;
     }
 
 

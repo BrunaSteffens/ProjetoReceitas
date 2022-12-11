@@ -1,24 +1,17 @@
 package com.example.projetoreceitas.projeto.view;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.model.Usuario;
 import com.example.projetoreceitas.projeto.presenter.LoginPresenter;
 import com.example.projetoreceitas.projeto.presenter.LoginPresenterContract;
 import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
 
-
 public class CadastroActivity extends AppCompatActivity  implements LoginPresenterContract.view{
-    private static final String TAG = "CadastroActivity";
     private LoginPresenterContract.presenter presenter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,24 +21,16 @@ public class CadastroActivity extends AppCompatActivity  implements LoginPresent
 
 
         findViewById(R.id.signUpConfirm).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Usuario usuario = new Usuario();
-                        usuario.setName(((TextView) findViewById(R.id.signUpName)).getText().toString());
-                        usuario.setEmail(((TextView) findViewById(R.id.signUpEmail)).getText().toString());
-                        usuario.setPassword(((TextView) findViewById(R.id.signUpPassword)).getText().toString());
+                v -> {
+                    Usuario usuario = new Usuario();
+                    usuario.setName(((TextView) findViewById(R.id.signUpName)).getText().toString());
+                    usuario.setEmail(((TextView) findViewById(R.id.signUpEmail)).getText().toString());
+                    usuario.setPassword(((TextView) findViewById(R.id.signUpPassword)).getText().toString());
 
-                        UsuarioRepositorio.getInstance().addUser(usuario);
-                        presenter.checkLogin(usuario.getEmail(), usuario.getPassword());
-                    }
+                    UsuarioRepositorio.getInstance().addUser(usuario);
+                    presenter.checkLogin(usuario.getEmail(), usuario.getPassword());
                 }
         );
-    }
-
-    @Override
-    public void message(String msg) {
-
     }
 
     @Override

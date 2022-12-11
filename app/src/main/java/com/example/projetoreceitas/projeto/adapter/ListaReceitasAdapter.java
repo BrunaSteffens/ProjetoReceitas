@@ -1,12 +1,8 @@
 package com.example.projetoreceitas.projeto.adapter;
 
-import static android.content.ContentValues.TAG;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,31 +12,24 @@ import android.widget.Filterable;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.model.Receita;
-import com.example.projetoreceitas.projeto.model.Usuario;
-import com.example.projetoreceitas.projeto.repository.FavoritoRepositorio;
-import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
-import com.example.projetoreceitas.projeto.view.HomeActivity;
 import com.example.projetoreceitas.projeto.view.ReceitaActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filterable {
-    private List<Receita> receitaList;
-    private List<Receita> receitaTotal;
-    private Context context;
+    private final List<Receita> receitaList;
+    private final List<Receita> receitaTotal;
+    private final Context context;
     private static final String TAG = "ListaReceitasAdapter";
     public View layoutVH;
-    private SharedPreferences preferences;
 
     public ListaReceitasAdapter(Context context, List<Receita> receitaList) {
         this.context = context;
         this.receitaList = receitaList;
         receitaTotal = new ArrayList<>(receitaList);
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @NonNull
@@ -54,19 +43,15 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filter
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Receita receita = receitaList.get(position);
 
-
         ((TextView) holder.itemView.findViewById(R.id.nome_receita)).setText(receita.getTitulo());
         ((TextView) holder.itemView.findViewById(R.id.rendimento)).setText(receita.getRendimento());
 
-        holder.itemView.findViewById(R.id.view_holder_receitas).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ReceitaActivity.class);
-                intent.putExtra("receita_id", receita.getReceita_id());
-                Log.d(TAG, "onClick: Repassando receita: "+receita.getReceita_id());
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                v.getContext().startActivity(intent);
-            }
+        holder.itemView.findViewById(R.id.nome_receita).setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ReceitaActivity.class);
+            intent.putExtra("receita_id", receita.getReceita_id());
+            Log.d(TAG, "onClick: Repassando receita: "+receita.getReceita_id());
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            v.getContext().startActivity(intent);
         });
     }
 
@@ -102,6 +87,7 @@ public class ListaReceitasAdapter extends RecyclerView.Adapter implements Filter
             return resultado;
         }
 
+        @SuppressLint("NotifyDataSetChanged")
         @Override
         protected void publishResults(CharSequence constraint, FilterResults resultado) {
             receitaList.clear();

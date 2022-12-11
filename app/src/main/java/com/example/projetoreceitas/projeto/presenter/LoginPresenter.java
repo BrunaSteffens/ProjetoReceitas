@@ -2,20 +2,14 @@ package com.example.projetoreceitas.projeto.presenter;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-
-import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.model.Usuario;
 import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
 import com.example.projetoreceitas.projeto.view.HomeActivity;
-import com.example.projetoreceitas.projeto.view.ReceitaActivity;
-
 
 public class LoginPresenter implements LoginPresenterContract.presenter {
-    private LoginPresenterContract.view view;
+    private final LoginPresenterContract.view view;
 
     public LoginPresenter(LoginPresenterContract.view view){
         this.view = view;
@@ -39,7 +33,7 @@ public class LoginPresenter implements LoginPresenterContract.presenter {
         intent.putExtra("usuarioObj", usuario);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(view.getActivity());
-        preferences.edit().putInt("usuario_id", usuario.getId()).commit();
+        preferences.edit().putInt("usuario_id", usuario.getId()).apply();
 
         view.getActivity().startActivity(intent);
     }

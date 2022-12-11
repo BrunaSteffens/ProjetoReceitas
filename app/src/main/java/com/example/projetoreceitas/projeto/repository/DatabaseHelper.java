@@ -22,22 +22,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String sqlFavorito = "CREATE TABLE favoritos (favorito_id INTEGER PRIMARY KEY AUTOINCREMENT, receita_id LONG, user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users (user_id));";
         db.execSQL(sqlFavorito);
-
-
-        /*
-        //(int id, String titulo, int rendimento, int tempoPreparo, String categoria)
-
-        String sqlReceita = "create table receitas (receita_id INTEGER PRIMARY KEY, titulo TEXT, rendimento INTEGER, tempo_preparo INTEGER, categoria TEXT);";
-        db.execSQL(sqlReceita);
-
-        //(String ingrediente, int receita_id)
-        String sqlIngrediente = "CREATE TABLE ingredientes (ingrediente_id INTEGER PRIMARY KEY AUTOINCREMENT, ingrediente TEXT, receita_id INTEGER, FOREIGN KEY (receita_id) REFERENCES receitas (receita_id));";
-        db.execSQL(sqlIngrediente);
-
-        //(String passo, int receita_id)
-        String sqlModoPreparo = "CREATE TABLE modo_preparo (modo_preparo_id INTEGER PRIMARY KEY AUTOINCREMENT, passo TEXT, receita_id INTEGER, FOREIGN KEY (receita_id) REFERENCES receitas (receita_id));";
-        db.execSQL(sqlModoPreparo);
-        */
     }
 
     @Override

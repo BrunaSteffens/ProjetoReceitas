@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,24 +17,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
-
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.adapter.ListaReceitasAdapter;
-import com.example.projetoreceitas.projeto.model.Receita;
 import com.example.projetoreceitas.projeto.model.Usuario;
-import com.example.projetoreceitas.projeto.repository.OnReadyListener;
 import com.example.projetoreceitas.projeto.repository.ReceitasRepositorio;
 import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
     private ListaReceitasAdapter adapter;
     private RecyclerView recyclerView;
-    private Usuario usuario;
-    private String usuario_filtro;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,23 +35,20 @@ public class HomeActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int u = preferences.getInt("usuario_id", 0);
-        usuario = UsuarioRepositorio.getInstance().getUserById(u);
+        Usuario usuario = UsuarioRepositorio.getInstance().getUserById(u);
         Log.e(TAG, "onCreate: usuario recebido " + usuario.getName());
 
-        ReceitasRepositorio.getInstance(this, new OnReadyListener() {
-            @Override
-            public void onReady() {
-                Log.d(TAG, "onCreate: Buscando o banco Json na Home");
-                recyclerView = findViewById(R.id.rv_lista_receitas);
-                adapter = new ListaReceitasAdapter(getApplicationContext(), ReceitasRepositorio.getInstance().getReceitas());
-                recyclerView.setAdapter(adapter);
-                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-                llm.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(llm);
+        ReceitasRepositorio.getInstance(this, () -> {
+            Log.d(TAG, "onCreate: Buscando o banco Json na Home");
+            recyclerView = findViewById(R.id.rv_lista_receitas);
+            adapter = new ListaReceitasAdapter(getApplicationContext(), ReceitasRepositorio.getInstance().getReceitas());
+            recyclerView.setAdapter(adapter);
+            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(llm);
 
-                Log.d(TAG, "Tamanho da lista de receitas "+ adapter.getItemCount());
+            Log.d(TAG, "Tamanho da lista de receitas "+ adapter.getItemCount());
 
-            }
         });
     }
 
@@ -84,6 +74,7 @@ public class HomeActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){

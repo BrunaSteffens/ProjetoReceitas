@@ -3,11 +3,6 @@ package com.example.projetoreceitas.projeto.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Receita implements Parcelable {
     private long receita_id;
     private String titulo, ingredientes, modo_preparo, rendimento;
@@ -18,11 +13,6 @@ public class Receita implements Parcelable {
         this.ingredientes = ingredientes;
         this.modo_preparo = modo_preparo;
         this.rendimento = rendimento;
-    }
-
-    public Receita(long receita_id, String titulo) {
-        this.receita_id = receita_id;
-        this.titulo = titulo;
     }
 
     public Receita() {
@@ -63,46 +53,24 @@ public class Receita implements Parcelable {
         parcel.writeString(rendimento);
     }
 
-
-
     public long getReceita_id() {
         return receita_id;
-    }
-
-    public void setReceita_id(long receita_id) {
-        this.receita_id = receita_id;
     }
 
     public String getTitulo() {
         return titulo;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
     public String getIngredientes() {
         return ingredientes;
-    }
-
-    public void setIngredientes(String ingredientes) {
-        this.ingredientes = ingredientes;
     }
 
     public String getModo_preparo() {
         return modo_preparo;
     }
 
-    public void setModo_preparo(String modo_preparo) {
-        this.modo_preparo = modo_preparo;
-    }
-
     public String getRendimento() {
         return rendimento;
-    }
-
-    public void setRendimento(String rendimento) {
-        this.rendimento = rendimento;
     }
 
 }

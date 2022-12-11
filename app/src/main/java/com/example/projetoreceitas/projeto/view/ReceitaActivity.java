@@ -1,20 +1,13 @@
 package com.example.projetoreceitas.projeto.view;
 
 import static android.content.ContentValues.TAG;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.model.Favorito;
 import com.example.projetoreceitas.projeto.model.Receita;
@@ -48,22 +41,19 @@ public class ReceitaActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.receitaModoPreparo)).setText(receita.getModo_preparo());
 
         findViewById(R.id.receita_favoritar).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.e(TAG, "onClick: Usuario clicou no botão favoritar");
+                v -> {
+                    Log.e(TAG, "onClick: Usuario clicou no botão favoritar");
 
-                        Log.e(TAG, "onCreate: Recebido o usuário " + usuario.getName() + " id " + usuario.getId());
+                    Log.e(TAG, "onCreate: Recebido o usuário " + usuario.getName() + " id " + usuario.getId());
 
-                        Favorito favorito = new Favorito( receita.getReceita_id(), usuario.getId());
-                        Log.e(TAG, "onClick: Criado o favorito user id " + favorito.getUser_id() + " id receita " + favorito.getReceita_id() );
+                    Favorito favorito = new Favorito( receita.getReceita_id(), usuario.getId());
+                    Log.e(TAG, "onClick: Criado o favorito user id " + favorito.getUser_id() + " id receita " + favorito.getReceita_id() );
 
-                        FavoritoRepositorio.getInstance(getApplicationContext()).addFavorito(favorito);
-                        Log.e(TAG, "onClick: favorito adicionado para o usuário" + favorito.getUser_id() + "da receita " + favorito.getReceita_id());
+                    FavoritoRepositorio.getInstance(getApplicationContext()).addFavorito(favorito);
+                    Log.e(TAG, "onClick: favorito adicionado para o usuário" + favorito.getUser_id() + "da receita " + favorito.getReceita_id());
 
-                        Toast.makeText(getApplicationContext(), "Favorito adicionado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Favorito adicionado!", Toast.LENGTH_SHORT).show();
 
-                    }
                 });
 
     }

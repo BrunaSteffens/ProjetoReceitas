@@ -1,5 +1,6 @@
 package com.example.projetoreceitas.projeto.repository;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import com.android.volley.Request;
@@ -8,7 +9,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.projetoreceitas.projeto.model.Favorito;
 import com.example.projetoreceitas.projeto.model.Receita;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,19 +19,19 @@ import java.util.List;
 public class ReceitasRepositorio implements ReceitaRepositorioInterface, Response.Listener<JSONArray>, Response.ErrorListener {
     private static final String TAG = "ReceitasRepositorio";
     private final List<Receita> receitaList ;
+    @SuppressLint("StaticFieldLeak")
     private static ReceitasRepositorio instance;
     private Context context;
-    private RequestQueue requestQueue;
+    private final RequestQueue requestQueue;
 
     private OnReadyListener onReadyListener;
 
     private ReceitasRepositorio(Context context) {
         super();
-
         this.context = context;
         receitaList = new ArrayList<>();
         this.requestQueue = Volley.newRequestQueue(context);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://raw.githubusercontent.com/BrunaSteffens/ReceitasDeCasa/master/Receitas.json", null, this, this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "https://raw.githubusercontent.com/BrunaSteffens/ProjetoReceitas/master/BancoReceitas2.json", null, this, this);
 
         requestQueue.add(jsonArrayRequest);
         Log.e(TAG, "ReceitasRepositorio: repositório lançado");
@@ -106,9 +106,4 @@ public class ReceitasRepositorio implements ReceitaRepositorioInterface, Respons
         return receita;
     }
 
-
-    @Override
-    public Receita getReceitabyNome(String nome) {
-        return null;
-    }
 }

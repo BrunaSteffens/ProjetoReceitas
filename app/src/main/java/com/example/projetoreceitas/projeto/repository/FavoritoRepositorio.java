@@ -48,6 +48,7 @@ public class FavoritoRepositorio {
         } else{
             Toast.makeText(contexto, "Favorito já está adicionado!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     public List<Receita> getFavoritos(int id){
@@ -60,9 +61,11 @@ public class FavoritoRepositorio {
         Cursor cursor = database.rawQuery(sql_getFavoritos, args );
         cursor.moveToFirst();
 
-        do{
-            favoritos.add(favoritoFromCursor(cursor));
-        } while (cursor.moveToNext());
+        if(cursor != null && cursor.moveToFirst()) {
+            do {
+                favoritos.add(favoritoFromCursor(cursor));
+            } while (cursor.moveToNext());
+        }
 
         Log.e(TAG, "getFavoritos: tamanho da lista: "+ favoritos.size());
 

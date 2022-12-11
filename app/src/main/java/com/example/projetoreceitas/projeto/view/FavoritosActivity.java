@@ -1,12 +1,12 @@
 package com.example.projetoreceitas.projeto.view;
 
 import static android.content.ContentValues.TAG;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,25 +16,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.SearchView;
-
 import com.example.projetoreceitas.R;
 import com.example.projetoreceitas.projeto.adapter.ListaReceitasAdapter;
 import com.example.projetoreceitas.projeto.model.Receita;
 import com.example.projetoreceitas.projeto.model.Usuario;
 import com.example.projetoreceitas.projeto.repository.FavoritoRepositorio;
-import com.example.projetoreceitas.projeto.repository.OnReadyListener;
-import com.example.projetoreceitas.projeto.repository.ReceitasRepositorio;
 import com.example.projetoreceitas.projeto.repository.UsuarioRepositorio;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavoritosActivity extends AppCompatActivity {
     private ListaReceitasAdapter adapter;
-    private RecyclerView recyclerView;
-    private Usuario usuario;
-    private String usuario_filtro;
-    private List<Receita> receitasFavoritas = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +34,13 @@ public class FavoritosActivity extends AppCompatActivity {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         int u = preferences.getInt("usuario_id", 0);
-        usuario = UsuarioRepositorio.getInstance().getUserById(u);
+        Usuario usuario = UsuarioRepositorio.getInstance().getUserById(u);
         Log.e(TAG, "onCreate Favoritos: usuario recebido " + usuario.getName());
 
-        receitasFavoritas = FavoritoRepositorio.getInstance(this).getFavoritos(usuario.getId());
+        List<Receita> receitasFavoritas = FavoritoRepositorio.getInstance(this).getFavoritos(usuario.getId());
         Log.e(TAG, "onCreate Favoritos activity: "+ receitasFavoritas.size() );
 
-        recyclerView = findViewById(R.id.rv_lista_receitas);
+        RecyclerView recyclerView = findViewById(R.id.rv_lista_receitas);
         adapter = new ListaReceitasAdapter(this, receitasFavoritas);
 
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
@@ -82,6 +73,7 @@ public class FavoritosActivity extends AppCompatActivity {
         return true;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
